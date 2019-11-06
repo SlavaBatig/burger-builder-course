@@ -16,84 +16,84 @@ class ContactData extends Component {
         elementType: 'input',
         elementConfig: {
           type: 'text',
-          placeholder: 'Your name'
+          placeholder: 'Your name',
         },
         value: '',
         validation: {
-          required: true
+          required: true,
         },
         valid: false,
-        touched: false
+        touched: false,
       },
       streed: {
         elementType: 'input',
         elementConfig: {
           type: 'text',
-          placeholder: 'Street'
+          placeholder: 'Street',
         },
         value: '',
         validation: {
-          required: true
+          required: true,
         },
         valid: false,
-        touched: false
+        touched: false,
       },
       zipCode: {
         elementType: 'input',
         elementConfig: {
           type: 'text',
-          placeholder: 'ZIP Code'
+          placeholder: 'ZIP Code',
         },
         value: '',
         validation: {
           required: true,
           minLength: 5,
-          maxLength: 5
+          maxLength: 5,
         },
         valid: false,
-        touched: false
+        touched: false,
       },
       country: {
         elementType: 'input',
         elementConfig: {
           type: 'text',
-          placeholder: 'Country'
+          placeholder: 'Country',
         },
         value: '',
         validation: {
-          required: true
+          required: true,
         },
         valid: false,
-        touched: false
+        touched: false,
       },
       email: {
         elementType: 'input',
         elementConfig: {
           type: 'email',
-          placeholder: 'Your email'
+          placeholder: 'Your email',
         },
         value: '',
         validation: {
-          required: true
+          required: true,
         },
         valid: false,
-        touched: false
+        touched: false,
       },
       deliveryMethod: {
         elementType: 'select',
         elementConfig: {
           options: [
             { value: 'fastest', displayValue: 'Fastest' },
-            { value: 'cheapest', displayValue: 'Cheapest' }
-          ]
+            { value: 'cheapest', displayValue: 'Cheapest' },
+          ],
         },
         value: 'fastest',
         validation: {},
-        valid: true
-      }
+        valid: true,
+      },
     },
     formIsValid: false,
-    loading: false
+    loading: false,
   };
 
   odrderHandler = event => {
@@ -105,7 +105,7 @@ class ContactData extends Component {
     const order = {
       ingredients: this.props.ings,
       price: this.props.price,
-      orderData: formData
+      orderData: formData,
     };
 
     this.props.onOrderBurger(order);
@@ -131,7 +131,7 @@ class ContactData extends Component {
 
   inputChangedHandler = (event, inputIndentifier) => {
     const updatedForm = {
-      ...this.state.orderForm
+      ...this.state.orderForm,
     };
 
     const updatedEl = { ...updatedForm[inputIndentifier] };
@@ -153,7 +153,7 @@ class ContactData extends Component {
     for (let key in this.state.orderForm) {
       formElements.push({
         id: key,
-        config: this.state.orderForm[key]
+        config: this.state.orderForm[key],
       });
     }
     let form = (
@@ -191,21 +191,17 @@ class ContactData extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    ings: state.burgerBuilder.ingredients,
-    price: state.burgerBuilder.totalPrice,
-    loading: state.orders.loading
-  };
-};
+const mapStateToProps = state => ({
+  ings: state.burgerBuilder.ingredients,
+  price: state.burgerBuilder.totalPrice,
+  loading: state.orders.loading,
+});
 
-const mapDispatchToProps = dispatch => {
-  return {
-    onOrderBurger: data => dispatch(actions.purchaseBurger(data))
-  };
-};
+const mapDispatchToProps = dispatch => ({
+  onOrderBurger: data => dispatch(actions.purchaseBurger(data)),
+});
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(withErrorHandler(ContactData, axios));
